@@ -4,20 +4,27 @@ var evilscan = require('evilscan');
 var portscanner = require('portscanner');
 var async=require('async');
 var host = '192.168.178.49/24';
+// starting from port number
+var start = 80;
+// to port number
+var end = 444;
+var timeout = 2000;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
  // scan();
 
 var range=getRange(host);
-
-
+async.each(range,function(ip,callback){
+},function(err){
+  if(err){return console.log(err);}
+  console.log('all finished');
+});
 
 
 console.log('scanner finished');
  // res.render('index', { title: 'Express' });
-
-
 });
 
 function getRange(ipSubnet)
@@ -32,23 +39,10 @@ function getRange(ipSubnet)
 
   return range;
 }
-function scan()
+function scan(ip)
 {
   var net = require('net');
 
-// the machine to scan
-
-// starting from port number
-  var start = 80;
-// to port number
-  var end = 444;
-
-  var timeout = 2000;
-var Netmask=require('netmask').Netmask;
-  var block=new Netmask('192.168.178.47/30');
-
-  block.forEach(function(ip,long,index)
-      {
         console.log("starting scanning ip:"+ip);
         // the port scanning loop
         var port = start;
@@ -78,15 +72,6 @@ var Netmask=require('netmask').Netmask;
 
           port++;
         }
-
-
-      }
-
-  );
-
-
-
-
 }
 
 module.exports = router;
