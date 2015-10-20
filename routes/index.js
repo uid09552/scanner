@@ -17,6 +17,10 @@ router.get('/', function(req, res, next) {
 
 var range=getRange(host);
 async.each(range,function(ip,callback){
+  scan(ip,function(){
+    console.log(ip+ " finished");
+    callback();
+  });
 },function(err){
   if(err){return console.log(err);}
   console.log('all finished');
@@ -40,7 +44,7 @@ function getRange(ipSubnet)
 
   return range;
 }
-function scan(ip)
+function scan(ip,callback)
 {
   var net = require('net');
 
@@ -55,19 +59,21 @@ function scan(ip)
             s.setTimeout(timeout, function() { s.destroy(); });
             s.connect(port, ip, function() {
               console.log('OPEN: ' + ip + ":" + port);
-
+              callback();
             });
 
             // if any data is written to the client on connection, show it
             s.on('data', function(data) {
               console.log(port +': '+ data);
               s.destroy();
+              callback();
             });
 
             s.on('error', function(e) {
 
               console.error('closed port:'+ip + ":" +port);
               s.destroy();
+              callback();
             });
           })(port);
 
