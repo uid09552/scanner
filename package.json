@@ -17,7 +17,11 @@
     "morgan": "~1.6.1",
     "net": "^1.0.2",
     "netmask": "^1.0.5",
+    "pg": "^4.4.3",
     "portscanner": "^1.0.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "traceroute": "0.0.3",
+    "wait-until": "0.0.2",
+    "waitfor": "^0.1.3"
   }
 }
