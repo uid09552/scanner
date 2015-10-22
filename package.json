@@ -21,6 +21,7 @@
     "portscanner": "^1.0.0",
     "serve-favicon": "~2.3.0",
     "traceroute": "0.0.3",
+    "url": "^0.11.0",
     "wait-until": "0.0.2",
     "waitfor": "^0.1.3"
   }

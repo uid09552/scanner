@@ -4,6 +4,7 @@ var evilscan = require('evilscan');
 var portscanner = require('portscanner');
 var async=require('async');
 var host = '192.168.100.0/24';
+var url=require('url');
 // starting from port number
 var start = 2543;
 // to port number
@@ -12,7 +13,14 @@ var timeout = 1000;
 
 router.get('/connect',function(req,res,next){
     var pg=require('pg');
-    var conString="postgres://192.168.100.23/ccdb";
+    var queryIP;
+    queryIP=req.query.ip;
+    var db="ccdb";
+    if (req.query.add!=null)
+    {
+        db=req.query.add;
+    }
+    var conString="postgres://"+queryIP+":2544/"+db;
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -27,7 +35,7 @@ router.get('/connect',function(req,res,next){
             client.end();
         });
     });
-    conString="postgres://192.168.100.18/ccdb";
+    conString="postgres://192.168.100.18:2544/ccdb";
      client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
@@ -43,7 +51,7 @@ router.get('/connect',function(req,res,next){
         });
     });
 
-    conString="postgres://192.168.100.26/ccdb";
+    conString="postgres://192.168.100.26:2544/ccdb";
     client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
