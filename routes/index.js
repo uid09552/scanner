@@ -20,30 +20,15 @@ router.get('/connect',function(req,res,next){
     {
         db=req.query.add;
     }
-    var conString="postgres://"+queryIP+":2544/"+db;
+    var conString="postgres://postgres@"+queryIP+":2544/"+db;
     var client = new pg.Client(conString);
     client.connect(function(err) {
         if(err) {
-            return console.error('could not connect to postgres 23', err);
+            return console.error('could not connect to postgres:'+conString, err);
         }
         client.query('SELECT NOW() AS "theTime"', function(err, result) {
             if(err) {
-                return console.error('error running query', err);
-            }
-            console.log(result.rows[0].theTime);
-            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-            client.end();
-        });
-    });
-    conString="postgres://192.168.100.18:2544/ccdb";
-     client = new pg.Client(conString);
-    client.connect(function(err) {
-        if(err) {
-            return console.error('could not connect to postgres 18', err);
-        }
-        client.query('SELECT NOW() AS "theTime"', function(err, result) {
-            if(err) {
-                return console.error('error running query', err);
+                return console.error('error running query:'+conString, err);
             }
             console.log(result.rows[0].theTime);
             //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
@@ -51,21 +36,7 @@ router.get('/connect',function(req,res,next){
         });
     });
 
-    conString="postgres://192.168.100.26:2544/ccdb";
-    client = new pg.Client(conString);
-    client.connect(function(err) {
-        if(err) {
-            return console.error('could not connect to postgres 26', err);
-        }
-        client.query('SELECT NOW() AS "theTime"', function(err, result) {
-            if(err) {
-                return console.error('error running query', err);
-            }
-            console.log(result.rows[0].theTime);
-            //output: Tue Jan 15 2013 19:12:47 GMT-600 (CST)
-            client.end();
-        });
-    });
+
 });
 
 router.get('/trace',function(req,res,next)
