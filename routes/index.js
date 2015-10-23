@@ -6,9 +6,9 @@ var async=require('async');
 var host = '192.168.100.0/24';
 var url=require('url');
 // starting from port number
-var start = 2543;
+var start = 80;
 // to port number
-var end = 2545;
+var end = 85;
 var timeout = 1000;
 
 router.get('/connect',function(req,res,next){
@@ -54,7 +54,7 @@ router.get('/scan',function(req,res,next)
     var portRange=getListFromRange(start,end);
     var asyncTasks=[];
     var result=[];
-    var host='192.168.100.0/24';
+    var host='10.2.0.1/24';
     var ipRange=getRange(host);
     ipRange.forEach(function(ip,indexIP,arrayIP)
         {
